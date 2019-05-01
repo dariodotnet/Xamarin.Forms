@@ -17,6 +17,10 @@ variables:
   value: 0
 - name: buildversion
   value: $[counter('$(Build.SourceBranchName)_counter', 1)]
+- name: MONO_VERSION
+  value: 5_18_1
+- name: XCODE_VERSION
+  value: 10.2
 
 resources:
   repositories:
