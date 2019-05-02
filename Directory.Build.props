@@ -4,4 +4,13 @@
     <__XFBuildTasksLocation Condition="'$(__XFBuildTasksLocation)' == '' AND '$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory).nuspec\netstandard2.0\</__XFBuildTasksLocation>
     <__XFBuildTasksLocation Condition="'$(__XFBuildTasksLocation)' == ''">$(MSBuildThisFileDirectory).nuspec\net46\</__XFBuildTasksLocation>
   </PropertyGroup>
- </Project> 
+  <PropertyGroup>
+    <CI Condition="'$(TF_BUILD)' == 'true'">true</CI>
+  </PropertyGroup>
+  <!-- These are replaced after restore by GitInfo.targets -->
+	<Target Name="GitVersion" />
+	<Target Name="GitInfo" />
+	<!-- Replaced by the .NET SDK -->
+	<Target Name="GetAssemblyVersion" />
+	<Target Name="GetPackageVersion" />
+ </Project>

@@ -1,0 +1,60 @@
+<Project>
+  <ItemGroup Condition="'$(IncludeGlobalAssemblyInfo)' == 'true'">
+    <PackageReference Include="GitInfo" Version="2.0.20" PrivateAssets="All" />
+		<Compile Include="..\Xamarin.Forms.Core\Properties\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+	</ItemGroup>
+
+  	<!-- Local builds should always be commit count +1, since we'll be always working on the next version to be published. -->
+	<Target Name="_SetLocalCommits" BeforeTargets="_GitPopulateVersionInfo" Condition="'$(CI)' != 'true'">
+		<PropertyGroup>
+			<GitCommits>$([MSBuild]::Add('$(GitCommits)', '1'))</GitCommits>
+		</PropertyGroup>
+	</Target>
+
+  <Target Name="SetGitBranch" AfterTargets="GitInfo" Condition="'$(CI)' == 'true'">
+    <PropertyGroup>
+      <!-- Adjust branch name to CI provided value if available -->
+      <GitBranch Condition="'$(SYSTEM_PULLREQUEST_TARGETBRANCH)' != ''">$(SYSTEM_PULLREQUEST_TARGETBRANCH)</GitBranch>
+      <GitBranch Condition="'$(SYSTEM_PULLREQUEST_TARGETBRANCH)' == '' and '$(BUILD_SOURCEBRANCHNAME)' != ''">$(BUILD_SOURCEBRANCHNAME)</GitBranch>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="GetVersion" BeforeTargets="Build;Pack;GetAssemblyVersion;GetPackageVersion" DependsOnTargets="GitVersion" Returns="$(Version)">
+		<PropertyGroup>
+			<!-- Our version is always the base version, with different pre-release labels for non-baseline builds -->
+			<VersionPrefix Condition="'$(VersionPrefix)' == ''">$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</VersionPrefix>
+			<!-- PR builds are *always* prerelease -->
+			<VersionSuffix Condition="'$(GitBranch)' == 'undefined'">-pr</VersionSuffix>
+			<VersionSuffix Condition="'$(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)' != ''">-pr$(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)</VersionSuffix>
+			<!-- If still no suffix was determined, default it to the optional semver label suffix -->
+			<VersionSuffix Condition="'$(VersionSuffix)' == ''">$(GitSemVerDashLabel)</VersionSuffix>
+
+			<!-- Finally, we'll use the branch name as a pre-release label unless it's master or a release build -->
+			<VersionSuffix Condition="'$(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)' == '' and
+									  '$(BUILD_SOURCEBRANCHNAME)' != '' and
+									  '$(BUILD_SOURCEBRANCHNAME)' != 'master' and
+									  '$(XAMARIN_ISRELEASE)' != 'true'">$(GitSemVerDashLabel)-$(BUILD_SOURCEBRANCHNAME)</VersionSuffix>
+
+			<!-- Finally make up the version -->
+			<Version>$(VersionPrefix)$(VersionSuffix)</Version>
+			<PackageVersion>$(Version)</PackageVersion>
+			<InformationalVersion Condition="'$(InformationalVersion)' == ''">$(Version)-$(GitBranch)+$(GitCommit)</InformationalVersion>
+		</PropertyGroup>
+	</Target>
+
+  <Target Name="VersionInfoReport" DependsOnTargets="GetVersion;GetAssemblyVersion;GetPackageVersion" BeforeTargets="GitInfoReport">
+		<Message Importance="$(GitInfoReportImportance)" Text="Version Info:
+  AssemblyVersion:        $(AssemblyVersion)
+  FileVersion:            $(FileVersion)
+  InformationalVersion:   $(InformationalVersion)
+  PackageVersion:         $(PackageVersion)
+  Version:        $(Version)
+  VersionPrefix:  $(VersionPrefix)
+  VersionSuffix:  $(VersionSuffix)
+"/>
+	</Target>
+
+  <ItemGroup>
+
+  </ItemGroup>
+ </Project>

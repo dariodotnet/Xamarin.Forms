@@ -46,11 +46,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms.Design" Version="1.0.26-pre" Condition=" '$(OS)' != 'Unix' " />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\Xamarin.Forms.Core\Properties\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
+  <PropertyGroup>
+    <IncludeGlobalAssemblyInfo>true</IncludeGlobalAssemblyInfo>   
+  </PropertyGroup>
   <ItemGroup Condition=" '$(OS)' != 'Unix' ">
     <Compile Include="AttributeTableBuilder.cs" />
     <Compile Include="EnumConverter.cs" />

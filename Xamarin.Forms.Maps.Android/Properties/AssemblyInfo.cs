@@ -12,8 +12,6 @@ using Xamarin.Forms.Maps.Android;
 
 [assembly: AssemblyTitle("Xamarin.Forms.Maps.Android")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
 // Add some common permissions, these can be removed if not needed
@@ -22,5 +20,3 @@ using Xamarin.Forms.Maps.Android;
 [assembly: UsesPermission(Manifest.Permission.WriteExternalStorage)]
 [assembly: ExportRenderer(typeof (Map), typeof (MapRenderer))]
 [assembly: Preserve]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
