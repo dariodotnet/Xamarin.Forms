@@ -4,9 +4,6 @@
     <AndroidCodeGenTarget>XAJavaInterop1</AndroidCodeGenTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <IncludeGlobalAssemblyInfo>true</IncludeGlobalAssemblyInfo>
-  </PropertyGroup>
-  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>

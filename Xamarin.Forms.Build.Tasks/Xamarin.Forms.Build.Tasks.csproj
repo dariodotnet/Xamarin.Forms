@@ -33,10 +33,6 @@
     <ProjectReference Include="..\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj" />
     <ProjectReference Include="..\Xamarin.Forms.Xaml\Xamarin.Forms.Xaml.csproj" />
   </ItemGroup>
-  
-  <PropertyGroup>
-    <IncludeGlobalAssemblyInfo>true</IncludeGlobalAssemblyInfo>   
-  </PropertyGroup>
 
 	<PropertyGroup Condition="'$(SnExe)' == '' And '$(OS)' != 'Windows_NT'">
 		<SnExe>sn</SnExe>

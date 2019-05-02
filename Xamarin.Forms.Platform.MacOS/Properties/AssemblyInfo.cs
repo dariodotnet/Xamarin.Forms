@@ -1,9 +1,5 @@
-﻿using System.Reflection;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.MacOS;
-
-[assembly: AssemblyTitle("Xamarin.Forms.Platform.macOS")]
-[assembly: AssemblyDescription("macOS Backend for Xamarin.Forms")]
 
 [assembly: Dependency(typeof(Deserializer))]
 [assembly: Dependency(typeof(ResourcesProvider))]

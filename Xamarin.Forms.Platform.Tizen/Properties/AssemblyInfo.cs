@@ -1,6 +1,5 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Tizen;
-using System.Reflection;
 
 [assembly: Dependency(typeof(ResourcesProvider))]
 [assembly: Dependency(typeof(Deserializer))]

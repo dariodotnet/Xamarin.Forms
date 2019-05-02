@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-
 
 [assembly: Dependency(typeof(WindowsSerializer))]
 
