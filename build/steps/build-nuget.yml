@@ -34,9 +34,14 @@ steps:
           {
             $formsNugetVersion = $formsNugetVersion +"-"+$prefix
           }
-          Write-Host("FormsVersion = $formsNugetVersion")
-          Write-Host("##{0}[task.setvariable variable=XamarinFormsPackageVersion]{1}" -f "vso",$formsNugetVersion.ToString() )
+
        }
+       else
+       {
+          $formsNugetVersion = $(Build.BuildNumber)
+       }
+       Write-Host("FormsVersion = $formsNugetVersion")
+       Write-Host("##{0}[task.setvariable variable=XamarinFormsPackageVersion]{1}" -f "vso",$formsNugetVersion.ToString() )
 
     failOnStderr: true
     displayName: 'Set Nuget version'
