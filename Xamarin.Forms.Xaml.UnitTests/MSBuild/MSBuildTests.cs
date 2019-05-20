@@ -78,6 +78,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 					if (!File.Exists (xamarinFormsTargets)) {
 						Assert.Fail ("Unable to find Xamarin.Forms.targets at path: " + xamarinFormsTargets);
 					}
+
 				} else {
 					Assert.Fail ("Unable to find Xamarin.Forms.targets at path: " + xamarinFormsTargets);
 				}
@@ -239,7 +240,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			AssertExists (Path.Combine (intermediateDirectory, "test.dll"), nonEmpty: true);
@@ -258,7 +259,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			var mainPageXamlG = Path.Combine (intermediateDirectory, "MainPage.xaml.g.cs");
@@ -295,7 +296,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			var mainPageXamlG = Path.Combine (intermediateDirectory, "MainPage.xaml.g.cs");
@@ -327,7 +328,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (itemGroup);
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			AssertExists (Path.Combine (intermediateDirectory, "test.dll"), nonEmpty: true);
@@ -344,7 +345,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile (@"Pages\MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 
 			//NOTE: CompileDesignTime target only exists on Windows
 			var target = Environment.OSVersion.Platform == PlatformID.Win32NT ? "CompileDesignTime" : "Compile";
@@ -385,7 +386,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile (@"Pages\MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile, "UpdateDesignTimeXaml");
 
 			AssertExists (Path.Combine (intermediateDirectory, "Pages", "MainPage.xaml.g.cs"), nonEmpty: true);
@@ -400,7 +401,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", Xaml.MainPage));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			var mainPageXamlG = Path.Combine (intermediateDirectory, "MainPage.xaml.g.cs");
@@ -440,7 +441,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("CustomView.xaml", "EmbeddedResource", Xaml.CustomView));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			var mainPageXamlG = Path.Combine (intermediateDirectory, "MainPage.xaml.g.cs");
@@ -478,7 +479,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", "<xml></xml>"));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			AssertExists (Path.Combine (intermediateDirectory, "test.dll"), nonEmpty: true);
@@ -493,7 +494,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.xaml", "EmbeddedResource", "notxmlatall"));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 		}
 
@@ -504,7 +505,7 @@ namespace Xamarin.Forms.MSBuild.UnitTests
 			project.Add (AddFile ("MainPage.txt", "EmbeddedResource", "notxmlatall"));
 			var projectFile = Path.Combine (tempDirectory, "test.csproj");
 			project.Save (projectFile);
-			RestoreIfNeeded (projectFile, sdkStyle);
+			RestoreIfNeeded (projectFile, true);
 			Build (projectFile);
 
 			AssertExists (Path.Combine (intermediateDirectory, "test.dll"), nonEmpty: true);
